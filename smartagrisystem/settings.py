@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-eic+sx!+vq4lyoasci#-e(xe^(c8-h!v=e1%xl28gkaafe)(%t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://smartagricalituresystem.azurewebsites.net/']
 
 
 # Application definition
