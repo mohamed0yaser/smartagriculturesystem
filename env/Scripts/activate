@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\FlasH\OneDrive\Desktop\project\env"
+VIRTUAL_ENV="C:\Users\FlasH\OneDrive\Desktop\project\sas\env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

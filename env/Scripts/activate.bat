@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\FlasH\OneDrive\Desktop\project\env
+set VIRTUAL_ENV=C:\Users\FlasH\OneDrive\Desktop\project\sas\env
 
 if not defined PROMPT set PROMPT=$P$G
 

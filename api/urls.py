@@ -1,11 +1,14 @@
 from django.urls import path
-from .import views
+from .views import MyTokenObtainPairView,UserDetailAPI,RegisterUserAPIView,ChangePasswordView
+from rest_framework_simplejwt.views import (
+    TokenRefreshView,
+)
 
-urlpatterns = [
-    path('',views.getRoutes),
-    path('notes/', views.getNotes),
-    path('notes/create/', views.createNote),
-    path('notes/<str:pk>/update/', views.updateNote),
-    path('notes/<str:pk>/delete/', views.deleteNote),
-    path('notes/<str:pk>/', views.getNote),   
+urlpatterns = [    
+    path('api/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path("api/get-details",UserDetailAPI.as_view()),
+    path('api/register/',RegisterUserAPIView.as_view()),
+    path('api/change-password/', ChangePasswordView.as_view(), name='change-password'),
+
 ]
