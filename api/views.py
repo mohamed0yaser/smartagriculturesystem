@@ -10,6 +10,10 @@ from rest_framework import generics
 from rest_framework import status
 from .serializers import ChangePasswordSerializer
 from rest_framework.permissions import IsAuthenticated 
+from .models import Embedded
+from .serializers import EmbeddedSerializer,UserImage
+from rest_framework.decorators import api_view
+from django.shortcuts import redirect
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -85,3 +89,60 @@ class ChangePasswordView(generics.UpdateAPIView):
             return Response(response)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+
+
+
+@api_view(['POST'])
+def embeddedCreate(request):
+   data = request.data
+   embedded = Embedded.objects.create(
+     temperature=data['temperature'],
+     humidity=data['humidity'],
+     light=data['light'],
+     rainfall=data['rainfall'],
+     soil_moisture=data['soil_moisture']
+   )
+   serializer = EmbeddedSerializer(embedded, many=False)
+   return Response(serializer.data)
+
+@api_view(['GET'])
+def embeddedViews(request):
+   embedded = Embedded.objects.all()
+   serializer = EmbeddedSerializer(embedded, many=True)
+   return Response(serializer.data)
+@api_view(['GET'])
+def embeddedView(request,pk):
+   embedded = Embedded.objects.get(id=pk)
+   serializer = EmbeddedSerializer(embedded, many=False)
+   return Response(serializer.data)
+@api_view(['PUT'])
+def embeddedUpdate(request,pk):
+   data = request.data
+   embedded = Embedded.objects.get(id=pk)
+   serializer = EmbeddedSerializer(embedded, data=request.data)
+   if serializer.is_valid():
+         serializer.save()
+   return Response(serializer.data)
+@api_view(['DELETE'])
+def embeddedDelete(request,pk):
+   embedded = Embedded.objects.get(id=pk)
+   embedded.delete()
+   return Response('file is deleted')
+
+
+
+@api_view(['GET','POST'])
+def userImg(request):
+   if request.method == 'POST':
+      serializer = UserImage(request.POST, request.FILES)
+      if serializer.is_valid():
+            serializer.save()
+            return redirect('success')
+
+def success(request):
+    return Response('successfully uploaded')      
+
+
+
